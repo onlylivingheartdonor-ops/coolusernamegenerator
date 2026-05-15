@@ -115,22 +115,19 @@ function slug(s) { return s.toLowerCase().replace(/[^a-z0-9]/g, "") }
 function leet(s) {
   return s.replace(/a/gi,"4").replace(/e/gi,"3").replace(/i/gi,"1").replace(/o/gi,"0").replace(/s/gi,"5")
 }
+{/* ========== MONEYWISE LINK — START ========== */}
+<div style={{ background: "#fff", border: "1px solid #e0dbd3", borderRadius: "4px", padding: "1rem 1.5rem", marginBottom: "1.5rem", textAlign: "center" }}>
+  <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "13px", color: "#888" }}>
+    Looking for more free financial tools?{" "}
+    <a href="https://moneywisecalculator.com" style={{ color: "#b45309", textDecoration: "underline" }}>
+      Visit MoneyWiseCalculator.com
+    </a>
+  </p>
+</div>
+{/* ========== MONEYWISE LINK — END ========== */}
 
-const RELATED = [
-  { label: "Credit Card Debt Payoff Calculator",  href: "https://creditcarddebtpayoffcalculator.com" },
-  { label: "Debt Reducing Calculator",            href: "https://debtreducingcalculator.com" },
-  { label: "Side Hustle Tax Estimator",           href: "https://sidehustletaxestimator.com" },
-  { label: "High Yield Savings Calculator",       href: "https://highyieldsavingscalculator.com" },
-  { label: "Retirement Savings Gap",              href: "https://retirementsavingsgap.com" },
-  { label: "Life Insurance Coverage Calculator",  href: "https://lifeinsurancecoveragecalculator.com" },
-  { label: "Online Course ROI Calculator",        href: "https://onlinecourseroi.com" },
-  { label: "Subscription Cost Calculator",        href: "https://mysubscriptioncost.com" },
-  { label: "Email Attachment Size Checker",       href: "https://emailattachmentsize.com" },
-  { label: "GPA Calculator",                      href: "https://gpacalculator.site" },
-  { label: "YouTube Title Checker",               href: "https://youtubetitlechecker.com" },
-  { label: "Strong Password Builder",             href: "https://strongpasswordbuilder.com" },
-  { label: "Cool Username Generator",             href: "https://coolusernamegenerator.com" },
-]
+{/* RELATED TOOLS */}
+import { RELATED_LINKS as RELATED } from "./lib/links"
 
 export default function Page() {
   const [keyword, setKeyword]   = useState("")
