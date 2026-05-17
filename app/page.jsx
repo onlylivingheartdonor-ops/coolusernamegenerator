@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
+import { RELATED_LINKS as RELATED } from "./lib/links"
 
 const css = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap');
@@ -99,14 +100,14 @@ const VERBS = [
 const NUMBERS = () => Math.floor(Math.random() * 900) + 100
 
 const STYLES = [
-  { key: "compound",  label: "Compound word",    sub: "SwiftFalcon",   fn: (w) => cap(pick(ADJECTIVES)) + cap(pick(NOUNS)) + (w ? cap(slug(w)) : "") },
-  { key: "keyword",   label: "Keyword + number", sub: "Echo404",       fn: (w) => (w ? cap(slug(w)) : cap(pick(ADJECTIVES))) + pick(NOUNS).slice(0,1).toUpperCase() + pick(NOUNS).slice(1) + NUMBERS() },
-  { key: "underscore",label: "Snake_case",        sub: "dark_signal",   fn: (w) => (w ? slug(w) : pick(ADJECTIVES)) + "_" + pick(NOUNS) },
-  { key: "dotted",    label: "Dotted",            sub: "iron.drift",    fn: (w) => (w ? slug(w) : pick(ADJECTIVES)) + "." + pick(NOUNS) },
-  { key: "action",    label: "Action phrase",     sub: "WolfRuns99",    fn: (w) => cap(w ? slug(w) : pick(NOUNS)) + cap(pick(VERBS)) + Math.floor(Math.random()*90+10) },
-  { key: "xstyle",    label: "x-prefix",          sub: "xVoidRider",    fn: (w) => "x" + cap(pick(ADJECTIVES)) + cap(w ? slug(w) : pick(NOUNS)) },
-  { key: "the",       label: "The + noun",        sub: "TheRealEcho",   fn: (w) => "The" + cap(w ? slug(w) : pick(ADJECTIVES)) + cap(pick(NOUNS)) },
-  { key: "leet",      label: "Leet-style",        sub: "3ch0_V01d",     fn: (w) => leet((w ? slug(w) : pick(ADJECTIVES)) + "_" + pick(NOUNS)) },
+  { key: "compound",   label: "Compound word",    sub: "SwiftFalcon",  fn: (w) => cap(pick(ADJECTIVES)) + cap(pick(NOUNS)) + (w ? cap(slug(w)) : "") },
+  { key: "keyword",    label: "Keyword + number", sub: "Echo404",      fn: (w) => (w ? cap(slug(w)) : cap(pick(ADJECTIVES))) + pick(NOUNS).slice(0,1).toUpperCase() + pick(NOUNS).slice(1) + NUMBERS() },
+  { key: "underscore", label: "Snake_case",       sub: "dark_signal",  fn: (w) => (w ? slug(w) : pick(ADJECTIVES)) + "_" + pick(NOUNS) },
+  { key: "dotted",     label: "Dotted",           sub: "iron.drift",   fn: (w) => (w ? slug(w) : pick(ADJECTIVES)) + "." + pick(NOUNS) },
+  { key: "action",     label: "Action phrase",    sub: "WolfRuns99",   fn: (w) => cap(w ? slug(w) : pick(NOUNS)) + cap(pick(VERBS)) + Math.floor(Math.random()*90+10) },
+  { key: "xstyle",     label: "x-prefix",         sub: "xVoidRider",   fn: (w) => "x" + cap(pick(ADJECTIVES)) + cap(w ? slug(w) : pick(NOUNS)) },
+  { key: "the",        label: "The + noun",       sub: "TheRealEcho",  fn: (w) => "The" + cap(w ? slug(w) : pick(ADJECTIVES)) + cap(pick(NOUNS)) },
+  { key: "leet",       label: "Leet-style",       sub: "3ch0_V01d",    fn: (w) => leet((w ? slug(w) : pick(ADJECTIVES)) + "_" + pick(NOUNS)) },
 ]
 
 function pick(arr) { return arr[Math.floor(Math.random() * arr.length)] }
@@ -115,26 +116,13 @@ function slug(s) { return s.toLowerCase().replace(/[^a-z0-9]/g, "") }
 function leet(s) {
   return s.replace(/a/gi,"4").replace(/e/gi,"3").replace(/i/gi,"1").replace(/o/gi,"0").replace(/s/gi,"5")
 }
-{/* ========== MONEYWISE LINK — START ========== */}
-<div style={{ background: "#fff", border: "1px solid #e0dbd3", borderRadius: "4px", padding: "1rem 1.5rem", marginBottom: "1.5rem", textAlign: "center" }}>
-  <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "13px", color: "#888" }}>
-    Looking for more free financial tools?{" "}
-    <a href="https://moneywisecalculator.com" style={{ color: "#b45309", textDecoration: "underline" }}>
-      Visit MoneyWiseCalculator.com
-    </a>
-  </p>
-</div>
-{/* ========== MONEYWISE LINK — END ========== */}
-
-{/* RELATED TOOLS */}
-import { RELATED_LINKS as RELATED } from "./lib/links"
 
 export default function Page() {
-  const [keyword, setKeyword]   = useState("")
-  const [styles, setStyles]     = useState({ compound: true, keyword: true, underscore: true, dotted: false, action: true, xstyle: false, the: false, leet: false })
-  const [count, setCount]       = useState(8)
-  const [results, setResults]   = useState([])
-  const [copied, setCopied]     = useState(null)
+  const [keyword, setKeyword] = useState("")
+  const [styles, setStyles]   = useState({ compound: true, keyword: true, underscore: true, dotted: false, action: true, xstyle: false, the: false, leet: false })
+  const [count, setCount]     = useState(8)
+  const [results, setResults] = useState([])
+  const [copied, setCopied]   = useState(null)
 
   const toggleStyle = (key) => {
     const next = { ...styles, [key]: !styles[key] }
@@ -190,7 +178,7 @@ export default function Page() {
           <label className="cug-field-label">Username styles</label>
           <div className="cug-style-grid">
             {STYLES.map(s => (
-              <div key={s.key} className={`cug-style-item${styles[s.key] ? " on" : ""}`} onClick={() => toggleStyle(s.key)}>
+              <div key={s.key} className={"cug-style-item" + (styles[s.key] ? " on" : "")} onClick={() => toggleStyle(s.key)}>
                 <div className="cug-check-box" />
                 <span className="cug-check-label">{s.label}</span>
                 <span className="cug-check-sub">{s.sub}</span>
@@ -215,7 +203,7 @@ export default function Page() {
                     <span className="cug-username-text">{r.text}</span>
                     <div className="cug-row-actions">
                       <span className="cug-tag">{r.styleLabel}</span>
-                      <button className={`cug-copy-btn${copied === i ? " done" : ""}`} onClick={e => { e.stopPropagation(); copyOne(r.text, i) }}>
+                      <button className={"cug-copy-btn" + (copied === i ? " done" : "")} onClick={e => { e.stopPropagation(); copyOne(r.text, i) }}>
                         {copied === i ? "✓ copied" : "copy"}
                       </button>
                     </div>
@@ -305,6 +293,17 @@ export default function Page() {
             </ul>
           </div>
         </div>
+
+        {/* ========== MONEYWISE LINK — START ========== */}
+        <div style={{ background: "#fff", border: "1px solid #e0dbd3", borderRadius: "4px", padding: "1rem 1.5rem", marginBottom: "1.5rem", textAlign: "center" }}>
+          <p style={{ fontFamily: "'DM Mono', monospace", fontSize: "13px", color: "#888" }}>
+            Looking for more free financial tools?{" "}
+            <a href="https://moneywisecalculator.com" style={{ color: "#b45309", textDecoration: "underline" }}>
+              Visit MoneyWiseCalculator.com
+            </a>
+          </p>
+        </div>
+        {/* ========== MONEYWISE LINK — END ========== */}
 
         {/* RELATED TOOLS */}
         <div className="cug-card">
