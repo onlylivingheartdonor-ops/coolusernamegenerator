@@ -7,6 +7,10 @@ export default function RootLayout({ children }) {
           name="description"
           content="Generate cool, creative usernames instantly. Create unique usernames for social media, gaming, and more."
         />
+  alternates: {
+    canonical: "https://www.coolusernamegenerator.com",
+  },
+};
 
         https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3475627763908800
       </head>
